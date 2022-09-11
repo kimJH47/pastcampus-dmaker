@@ -1,6 +1,7 @@
 package com.fastcampus.spring.dmaker.entity;
 
 
+import com.fastcampus.spring.dmaker.dto.UpdateDeveloper;
 import com.fastcampus.spring.dmaker.type.DeveloperLevel;
 import com.fastcampus.spring.dmaker.type.DeveloperSkillType;
 import lombok.*;
@@ -35,4 +36,10 @@ public class Developer {
     @LastModifiedDate
     private LocalDateTime updateAt;
 
+    public Developer update(UpdateDeveloper.Request request) {
+        this.experienceYears = request.getExperienceYear();
+        this.developerSkillType=request.getDeveloperSkillType();
+        this.developerLevel = request.getDeveloperLevel();
+        return this;
+    }
 }
