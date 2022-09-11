@@ -18,6 +18,7 @@ import java.util.Arrays;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -57,6 +58,7 @@ class DMakerControllerTest {
         //when
         //then
         mvc.perform(get("/api/developers").contentType(contentType))
+           .andDo(print())
            .andExpect(status().isOk())
            .andExpect(jsonPath("$.[0].developerSkillType", is(DeveloperSkillType.BACK_END.name())))
            .andExpect(jsonPath("$.[1].developerSkillType", is(DeveloperSkillType.FRONT_END.name())))

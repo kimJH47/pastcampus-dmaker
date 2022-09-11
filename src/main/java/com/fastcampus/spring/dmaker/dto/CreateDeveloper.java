@@ -39,11 +39,11 @@ public class CreateDeveloper {
 
         public Developer toEntity() {
             return Developer.builder()
-                            .name(this.name)
                             .experienceYears(this.experienceYear)
-                            .memberId(this.memberId)
                             .developerLevel(this.developerLevel)
                             .developerSkillType(this.developerSkillType)
+                            .memberId(this.memberId)
+                            .name(this.name)
                             .age(this.age)
                             .build();
 
@@ -64,8 +64,8 @@ public class CreateDeveloper {
 
         public static Response fromEntity(Developer developer) {
             return Response.builder()
-                           .developerLevel(developer.getDeveloperLevel())
                            .developerSkillType(developer.getDeveloperSkillType())
+                           .developerLevel(developer.getDeveloperLevel())
                            .experienceYear(developer.getExperienceYears())
                            .memberId(developer.getMemberId())
                            .build();

@@ -28,9 +28,10 @@ public class DMakerService {
 
     @Transactional
     public CreateDeveloper.Response createDeveloper(CreateDeveloper.Request request) {
-        Developer developer = request.toEntity();
         //business validate
         validateCreateDeveloperRequest(request);
+        Developer developer = request.toEntity();
+        System.out.println("level: "+developer.getDeveloperLevel());
         Developer dev = developerRepository.save(developer);
 
         return CreateDeveloper.Response.fromEntity(dev);
