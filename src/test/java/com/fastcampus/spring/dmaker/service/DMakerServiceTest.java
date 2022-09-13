@@ -6,7 +6,6 @@ import com.fastcampus.spring.dmaker.entity.Developer;
 import com.fastcampus.spring.dmaker.exception.DMakerErrorCode;
 import com.fastcampus.spring.dmaker.exception.DMakerException;
 import com.fastcampus.spring.dmaker.repository.DeveloperRepository;
-import com.fastcampus.spring.dmaker.repository.RetiredDeveloperRepository;
 import com.fastcampus.spring.dmaker.type.DeveloperLevel;
 import com.fastcampus.spring.dmaker.type.DeveloperSkillType;
 import org.junit.jupiter.api.Test;
@@ -32,8 +31,6 @@ class DMakerServiceTest {
 
     @Mock
     private DeveloperRepository developerRepository;
-    @Mock
-    private RetiredDeveloperRepository retiredDeveloperRepository;
     @InjectMocks
     private DMakerService dMakerService;
 
@@ -50,7 +47,7 @@ class DMakerServiceTest {
         //then
         then(developerRepository).should(times(1))
                                  .findByMemberId(anyString());
-        assertEquals(developerDetail.getMemberId(), "Tray");
+        assertEquals(developerDetail.getMemberId(), "TRAY");
         assertEquals(developerDetail.getDeveloperSkillType(), DeveloperSkillType.BACK_END);
         assertEquals(developerDetail.getDeveloperLevel(), DeveloperLevel.JUNIOR);
     }
