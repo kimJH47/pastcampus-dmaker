@@ -115,6 +115,27 @@ class DMakerServiceTest {
 
 
     }
+    @Test
+    public void createDeveloper_failed_with_LEVEL_EXPERIENCE_YEARS_NOT_MATCHED() throws Exception {
+        //given
+        CreateDeveloper.Request request = CreateDeveloper.Request.builder()
+                                                                 .developerLevel(DeveloperLevel.JUNGIOR)
+                                                                 .developerSkillType(DeveloperSkillType.BACK_END)
+                                                                 .memberId("TRAY")
+                                                                 .name("tray")
+                                                                 .experienceYear(2)
+                                                                 .age(30)
+                                                                 .build();
+        //when
+        //then
+        verify(developerRepository, times(0)).save(any(Developer.class));
+        DMakerException dMakerException = assertThrows(DMakerException.class, () -> {
+            dMakerService.createDeveloper(request);
+        });
+        assertEquals(dMakerException.getDMakerErrorCode(), DMakerErrorCode.LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
+
+
+    }
 
 
 }
