@@ -70,26 +70,28 @@ public class DMakerService {
     @Transactional(readOnly = true)
     public DeveloperDetailDto getDeveloperDetail(String memberId) {
 
-        return developerRepository.findByMemberId(memberId)
-                                  .map(DeveloperDetailDto::fromEntity)
-                                  .orElseThrow(() -> new DMakerException(NO_DEVELOPER));
+        return DeveloperDetailDto.fromEntity(getDeveloperByMemberId(memberId));
 
     }
 
     @Transactional
     public DeveloperDetailDto updateDeveloper(UpdateDeveloper.Request request) {
         validateDeveloperLevelAndYears(request.getDeveloperLevel(), request.getExperienceYear());
-        Developer developer = developerRepository.findByMemberId(request.getMemberId())
-                                                 .orElseThrow(() -> new DMakerException(NO_DEVELOPER));
+        Developer developer = getDeveloperByMemberId(request.getMemberId());
         return DeveloperDetailDto.fromEntity(developer.update(request));
 
     }
 
     @Transactional
     public void retiredDeveloper(String memberId) {
-        Developer developer = developerRepository.findByMemberId(memberId)
-                                                 .orElseThrow(() -> new DMakerException(NO_DEVELOPER));
+        Developer developer = getDeveloperByMemberId(memberId);
         retiredDeveloperRepository.save(RetiredDeveloper.create(developer));
         developerRepository.delete(developer);
+    }
+
+    private Developer getDeveloperByMemberId(String memberId) {
+        Developer developer = developerRepository.findByMemberId(memberId)
+                                                 .orElseThrow(() -> new DMakerException(NO_DEVELOPER));
+        return developer;
     }
 }
